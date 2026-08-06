@@ -3,79 +3,57 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8fafa">
+  <meta name="theme-color" content="#F8FAFA">
   <meta name="description" content="Jellybook is a lightweight, Git-native home for project issues, changes, reviews, documentation, and memory.">
   <meta property="og:title" content="Jellybook">
   <meta property="og:description" content="Git-native project memory that just makes sense.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jellybook.dev/">
   <title>Jellybook — Git-native project memory</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="brand-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="shell">
-    <nav class="topbar" aria-label="Primary navigation">
-      <a class="mini-brand" href="/" aria-label="Jellybook home">
-        <svg class="mini-mark" viewBox="0 0 88 72" aria-hidden="true">
-          <path d="M8 12c13-3 25-1 36 7v45C33 57 21 55 8 58V12Z"/>
-          <path d="M80 12c-13-3-25-1-36 7v45c11-7 23-9 36-6V12Z"/>
-          <path d="M44 19v45"/>
-          <path class="accent-fill" d="M56 57h14v13l-7-4-7 4V57Z"/>
-          <path d="M24 28v17c0 5-2 8-7 8"/>
-          <circle cx="24" cy="20" r="2.7" class="dot"/>
-        </svg>
+  <div class="page">
+    <header class="site-header">
+      <a class="mini-lockup" href="/" aria-label="Jellybook home">
+        <img src="brand-mark.svg" alt="">
         <span>jellybook</span>
       </a>
-      <a class="text-link" href="https://github.com/jellybook-org" rel="noreferrer">GitHub</a>
-    </nav>
+      <a class="header-link" href="https://github.com/jellybook-org/jellybook">GitHub</a>
+    </header>
 
-    <section class="hero">
-      <div class="brand-lockup">
-        <svg class="hero-mark" viewBox="0 0 180 148" role="img" aria-label="Jellybook open-book logo">
-          <path d="M16 20c27-7 51-2 74 15v92c-23-16-47-21-74-14V20Z"/>
-          <path d="M164 20c-27-7-51-2-74 15v92c23-16 47-21 74-14V20Z"/>
-          <path d="M90 35v92"/>
-          <path class="accent-fill" d="M118 111h28v27l-14-8-14 8v-27Z"/>
-          <path d="M53 54v34c0 11-5 17-15 17"/>
-          <circle cx="53" cy="41" r="5.5" class="dot"/>
-        </svg>
-        <div>
-          <h1>jellybook</h1>
-          <p class="tagline">issues, changes, reviews, docs—<br>all in your repository.</p>
+    <main>
+      <section class="hero">
+        <img class="brand-lockup" src="brand-lockup.svg" alt="Jellybook — issues, changes, reviews, docs—all in your repository.">
+      </section>
+
+      <section class="coming-soon" aria-labelledby="coming-soon-title">
+        <div class="status-line">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>early development</span>
         </div>
-      </div>
-
-      <div class="status-card">
-        <span class="eyebrow"><span class="pulse" aria-hidden="true"></span>Taking shape</span>
-        <h2>Git-native project memory that just makes sense.</h2>
-        <p>Jellybook is a lightweight, open-source workspace where project history, collaboration, and knowledge live alongside the code they explain.</p>
+        <h1 id="coming-soon-title">A project should remember how it became itself.</h1>
+        <p>Jellybook is an open-source, Git-native workspace for issues, changes, reviews, decisions, and documentation. The project is taking shape now.</p>
         <div class="actions">
-          <a class="button primary" href="https://github.com/jellybook-org/jellybook" rel="noreferrer">Follow the project</a>
-          <span class="button ghost" aria-disabled="true">Releases coming soon</span>
+          <a class="button primary" href="https://github.com/jellybook-org/jellybook">Follow on GitHub</a>
+          <span class="button secondary" aria-disabled="true">Downloads coming soon</span>
         </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-ribbon">
+        <img src="brand-mark.svg" alt="">
+        <strong>Lightweight. Transparent. Yours.</strong>
+        <span class="divider" aria-hidden="true"></span>
+        <span>Project memory that lives with your code.</span>
       </div>
-    </section>
-
-    <section class="feature-strip" aria-label="Jellybook principles">
-      <article>
-        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11"/><path d="M16 9v7l5 3"/></svg>
-        <div><strong>Lightweight</strong><span>One executable. Ordinary Git.</span></div>
-      </article>
-      <article>
-        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 24V11m0 0 5 5m-5-5-5 5M24 8v13m0 0 5-5m-5 5-5-5"/></svg>
-        <div><strong>Portable</strong><span>Your history travels with the repo.</span></div>
-      </article>
-      <article>
-        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 10h20v14H10l-4 4V10Z"/></svg>
-        <div><strong>Human</strong><span>Readable Markdown, not a black box.</span></div>
-      </article>
-    </section>
-
-    <footer>
-      <span>Lightweight. Transparent. Yours.</span>
-      <span>© 2026 Jellybook contributors</span>
+      <span class="copyright">© 2026 Jellybook contributors</span>
     </footer>
-  </main>
+  </div>
 </body>
 </html>
