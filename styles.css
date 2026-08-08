@@ -1,211 +1,560 @@
+/* ==========================================================================
+   jellybook — marketing page
+   ========================================================================== */
+
 :root {
-  color-scheme: light;
-  --ink: #24292F;
-  --slate: #475569;
-  --teal: #2DB6A3;
-  --foam: #E6F7F4;
-  --paper: #F8FAFA;
-  --line: #E8EEEE;
-  --white: #FFFFFF;
+  --page:        #FBFBFB;
+  --ink:         #1E2D3B;   /* headings, logo, nav */
+  --body:        #3E4B5C;   /* paragraph text */
+  --teal:        #2DA099;
+  --teal-ink:    #2B9A93;   /* teal text / outline button */
+  --teal-tile:   #EDF6F5;   /* feature icon tile */
+  --band:        #F2F9F9;   /* feature strip background */
+  --card:        #FFFFFF;
+  --rule:        #E4E8EB;   /* nav underline */
+  --rule-soft:   #E1EAEA;   /* capability separators */
+  --heart:       #D2585F;   /* the one warm accent on the page */
+
+  --gutter:      60px;
+  --shell:       1552px;
+
+  /* Quicksand carries the brand voice: logo, headings, nav, buttons, labels.
+     Inconsolata sets running prose. */
+  --font-display: "Quicksand", "Trebuchet MS", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body:    "Inconsolata", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --font-brand:   var(--font-display);
 }
 
-* { box-sizing: border-box; }
-html { background: var(--paper); }
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  min-height: 100vh;
-  color: var(--ink);
-  background: var(--paper);
-  font-family: "Manrope", "Avenir Next", Avenir, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--page);
+  color: var(--body);
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a { color: inherit; }
+img { max-width: 100%; display: block; }
 
-.page {
-  width: min(1220px, calc(100% - 40px));
-  min-height: 100vh;
-  margin: 0 auto;
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--ink); font-weight: 700; }
+
+p { margin: 0; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+.container {
+  width: min(var(--shell), 100% - (var(--gutter) * 2));
+  margin-inline: auto;
+}
+
+.vh {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Pre-release notice
+   -------------------------------------------------------------------------- */
+
+.dev-banner {
+  background: var(--ink);
+  color: #BFCCD8;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.dev-banner-inner {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-height: 46px;
+  padding: 8px 24px 8px 52px;
 }
+
+.dev-banner p { margin: 0; }
+.dev-banner strong { color: #F4F8FA; font-weight: 500; }
+
+.dev-pill {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #10222C;
+  background: var(--teal);
+  border-radius: 999px;
+  padding: 4px 11px;
+}
+
+.dev-link {
+  flex: none;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: #8CDFD6;
+  white-space: nowrap;
+}
+.dev-link:hover { color: #fff; }
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  font-family: var(--font-display);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border-radius: 9px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.btn-solid {
+  height: 59px;
+  padding: 0 30px;
+  min-width: 197px;
+  background: var(--teal);
+  color: #fff;
+  font-size: 20px;
+}
+.btn-solid:hover { background: #268C86; }
+
+.btn-outline {
+  height: 59px;
+  padding: 0 30px;
+  min-width: 200px;
+  background: transparent;
+  color: var(--teal-ink);
+  font-size: 20px;
+  border: 1.6px solid #7FC3BF;
+}
+.btn-outline:hover { border-color: var(--teal); background: rgba(45,160,153,.06); }
+
+.btn-sm {
+  height: 53px;
+  min-width: 128px;
+  padding: 0 16px;
+  font-size: 19px;
+  border-radius: 8px;
+}
+
+.ico-arrow { width: 26px; height: 26px; flex: none; }
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
 
 .site-header {
-  min-height: 82px;
+  background: var(--page);
+  border-bottom: 1px solid var(--rule);
+}
+
+.header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--line);
+  gap: 40px;
+  height: 90px;
+  padding: 0 24px 0 52px;
 }
 
-.mini-lockup {
+.brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  font-size: 1rem;
+  gap: 21px;
+}
+
+/* The lockup is aligned optically, not by box. Two offsets cancel out: the
+   teal bookmark overhangs below the book, so centring the SVG box leaves the
+   book ~3px high; and Quicksand's ink sits ~3px low inside a line-height:1
+   box. Nudging each onto the shared centre lines the book up with the word. */
+.brand-mark {
+  width: 48px;
+  height: 45.9px;
+  flex: none;
+  position: relative;
+  top: 2.8px;
+}
+
+/* Custom properties so a single <symbol> can be recoloured per instance —
+   descendant selectors do not cross the <use> shadow boundary. */
+.lm-book { fill: var(--lm-book, #1E2D3B); }
+.lm-page { fill: var(--lm-page, #FBFBFB); }
+.lm-mark { fill: var(--lm-mark, #2DA099); }
+
+.brand-word {
+  font-family: var(--font-brand);
   font-weight: 500;
-  letter-spacing: -0.04em;
+  font-size: 37px;
+  line-height: 1;
+  letter-spacing: .002em;
+  color: var(--ink);
+  position: relative;
+  top: -2.7px;
 }
 
-.mini-lockup img {
-  width: 37px;
-  height: 35px;
-  object-fit: cover;
-  object-position: left center;
+.brand-badge {
+  align-self: center;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: var(--teal-ink);
+  background: var(--teal-tile);
+  border: 1px solid #C9E6E2;
+  border-radius: 999px;
+  white-space: nowrap;
 }
 
-.header-link {
-  color: var(--slate);
-  text-decoration: none;
-  font-size: 0.88rem;
-  transition: color 160ms ease;
-}
-.header-link:hover { color: var(--teal); }
-
-main {
-  flex: 1;
-  display: grid;
-  align-content: center;
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
 }
 
-.hero {
-  display: grid;
-  place-items: center;
-  padding: clamp(72px, 10vw, 126px) 0 clamp(52px, 7vw, 84px);
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 44px;
 }
 
-.brand-lockup {
-  display: block;
-  width: min(720px, 100%);
-  height: auto;
-}
-
-.coming-soon {
-  width: min(760px, 100%);
-  margin: 0 auto;
-  padding: clamp(40px, 5vw, 62px) 0 clamp(72px, 8vw, 104px);
-  text-align: center;
-  border-top: 1px solid var(--line);
-}
-
-.status-line {
+.nav-links a {
+  font-family: var(--font-display);
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  color: var(--teal);
-  font-size: 0.73rem;
+  color: var(--ink);
+  font-size: 19px;
   font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--teal-ink); }
+
+.ico-caret { width: 19px; height: 19px; flex: none; margin-top: 2px; }
+.ico-ext   { width: 17px; height: 17px; flex: none; margin-top: -2px; }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: var(--teal);
+/* --------------------------------------------------------------------------
+   Inert controls — nothing is wired behind these yet, so they render as
+   non-interactive rather than linking nowhere. Drop is-disabled and add the
+   href back once a destination exists.
+   -------------------------------------------------------------------------- */
+
+.is-disabled { cursor: help; }
+
+.nav-links a.is-disabled,
+.nav-links a.is-disabled:hover { color: #A2AEBA; }
+
+.btn-solid.is-disabled,
+.btn-solid.is-disabled:hover { background: #D5DDE2; color: #7C8996; }
+
+.btn-outline.is-disabled,
+.btn-outline.is-disabled:hover {
+  border-color: #DCE3E7;
+  color: #97A4B0;
+  background: transparent;
 }
 
-h1 {
-  max-width: 720px;
-  margin: 25px auto 18px;
-  font-size: clamp(2.15rem, 5vw, 4rem);
-  line-height: 1.1;
-  font-weight: 500;
-  letter-spacing: -0.055em;
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  height: 652px;
 }
 
-.coming-soon p {
-  max-width: 640px;
-  margin: 0 auto;
-  color: var(--slate);
-  font-size: clamp(0.98rem, 1.7vw, 1.12rem);
-  line-height: 1.75;
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 784px;
+  align-items: start;
 }
 
-.actions {
+.hero-copy { padding: 68px 0 0 5px; }
+
+.hero-title {
+  max-width: 740px;
+  font-size: 55px;
+  line-height: 74px;
+}
+
+.hero-lede {
+  max-width: 620px;
+  margin-top: 19px;
+  font-size: 20px;
+  line-height: 34.7px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
   margin-top: 30px;
+}
+
+/* Capability strip ------------------------------------------------------- */
+
+.capabilities {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
+  align-items: stretch;
+  margin-top: 46px;
 }
 
-.button {
-  min-height: 44px;
-  padding: 0 18px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  font-size: 0.86rem;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.button.primary {
-  color: var(--white);
-  background: var(--ink);
-}
-.button.primary:hover { background: var(--teal); }
-
-.button.secondary {
-  color: var(--slate);
-  background: var(--foam);
-}
-
-.site-footer { padding-bottom: 22px; }
-
-.footer-ribbon {
-  min-height: 76px;
-  padding: 18px 28px;
+.capabilities li {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 18px;
-  border-radius: 38px;
-  background: var(--foam);
-  color: var(--slate);
-  font-size: 0.86rem;
+  gap: 22px;
+  padding: 0 39px;
 }
 
-.footer-ribbon img {
-  width: 34px;
-  height: 32px;
-  object-fit: cover;
-}
+.capabilities li + li { border-left: 1px solid var(--rule-soft); }
+.capabilities li:first-child { padding-left: 9px; }
 
-.footer-ribbon strong {
+.cap-icon {
+  width: 50px;
+  height: 50px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cap-icon.is-teal { stroke: var(--teal); }
+
+.capabilities span {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.2;
   color: var(--ink);
   font-weight: 600;
 }
 
-.divider {
-  width: 1px;
-  height: 25px;
-  background: rgba(71, 85, 105, 0.25);
+/* Not built yet — greyed back so the strip reads as a roadmap, not a feature list. */
+.capabilities li.is-planned .cap-icon { stroke: #AAB5C0; }
+.capabilities li.is-planned span { color: #8A97A4; font-weight: 500; }
+
+
+
+/* Illustration ------------------------------------------------------------ */
+
+.hero-art { position: relative; }
+
+.hero-art img {
+  width: 784px;
+  height: 784px;
+  margin-top: -85px;
+  margin-left: auto;
 }
 
-.copyright {
-  display: block;
-  padding: 18px 0 0;
+/* --------------------------------------------------------------------------
+   Feature strip
+   -------------------------------------------------------------------------- */
+
+.features {
+  background: var(--band);
+  padding: 28px 0 60px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+}
+
+.feature-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  padding: 24px;
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(30, 45, 59, .04), 0 6px 20px rgba(30, 45, 59, .045);
+}
+
+.feature-icon {
+  width: 104px;
+  height: 104px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: var(--teal-tile);
+  border-radius: 17px;
+}
+
+.fi-logo {
+  width: 56px;
+  height: 53.6px;
+  --lm-book: var(--teal);
+  --lm-page: var(--teal-tile);
+  --lm-mark: var(--teal);
+}
+
+.fi-line {
+  width: 62px;
+  height: 62px;
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.feature-text h3 {
+  font-size: 19px;
+  line-height: 26px;
+  letter-spacing: -0.004em;
+}
+
+.feature-text p {
+  max-width: 320px;
+  margin-top: 7px;
+  font-size: 14px;
+  line-height: 23px;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  padding: 32px 0 38px;
   text-align: center;
-  color: var(--slate);
-  font-size: 0.72rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 16px;
+  color: #74818F;
+}
+
+.site-footer .heart {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  vertical-align: -2px;
+  fill: var(--heart);
+}
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+/* The pixel-exact hero above is tuned for the 1672px comp: it pins its own
+   height so the illustration is cropped by the feature strip. Below that the
+   layout goes fluid and the illustration scales instead of being clipped. */
+@media (max-width: 1660px) {
+  .hero { height: auto; padding-bottom: 48px; }
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 700px);
+    gap: 40px;
+    align-items: center;
+  }
+  .hero-copy { padding: 56px 0 0; }
+  .hero-title { font-size: clamp(36px, 3.4vw, 55px); line-height: 1.18; max-width: 13.5em; }
+  .hero-lede { font-size: clamp(15px, 1.2vw, 20px); line-height: 1.75; max-width: 62ch; }
+  .hero-lede br { display: none; }
+  .hero-art img { width: 100%; height: auto; margin-top: 0; }
+  .capabilities li { padding: 0 clamp(18px, 2.6vw, 40px); }
+  .capabilities li:first-child { padding-left: 0; }
+}
+
+@media (max-width: 1240px) {
+  :root { --gutter: 32px; }
+  .header-inner { padding: 0 32px; }
+  .dev-banner-inner { padding-inline: 32px; }
+  .nav-links { gap: 32px; }
+  .main-nav { gap: 28px; }
+  .feature-card { gap: 20px; padding: 20px; }
+  .feature-icon { width: 84px; height: 84px; border-radius: 14px; }
+  .fi-line { width: 50px; height: 50px; }
+  .fi-logo { width: 46px; height: 44px; }
+  .feature-text p br { display: none; }
+}
+
+/* Below this the header stacks: brand + actions on the first row, the link
+   list on a second row that scrolls sideways rather than being hidden. */
+@media (max-width: 1040px) {
+  .dev-banner-inner { flex-wrap: wrap; gap: 10px 14px; padding: 10px 24px; }
+  .dev-banner { font-size: 14px; }
+  .dev-link { margin-left: 0; }
+  .header-inner { flex-wrap: wrap; height: auto; padding: 14px 24px 10px; row-gap: 12px; }
+  .main-nav { display: contents; }
+  .nav-links {
+    order: 3;
+    width: 100%;
+    gap: 26px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { font-size: 17px; }
+  .nav-actions { order: 2; }
+
+  .hero { padding-bottom: 32px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 8px; }
+  .hero-copy { padding-top: 40px; }
+  .hero-art { order: -1; }
+  .hero-art img { max-width: 620px; margin-inline: auto; }
+  .feature-grid { grid-template-columns: 1fr; gap: 20px; }
+  .capabilities { flex-wrap: wrap; row-gap: 28px; }
+  .capabilities li { padding: 0 24px; }
+  .capabilities li + li { border-left: 0; }
 }
 
 @media (max-width: 680px) {
-  .page { width: min(100% - 28px, 1220px); }
-  .site-header { min-height: 72px; }
-  .hero { padding-top: 64px; }
-  .coming-soon { padding-bottom: 68px; }
-  .footer-ribbon {
-    border-radius: 28px;
-    flex-wrap: wrap;
-    gap: 10px 14px;
-    text-align: center;
-  }
-  .divider { display: none; }
+  :root { --gutter: 20px; }
+  .dev-banner-inner { padding-inline: 20px; }
+  .header-inner { padding: 12px 20px 8px; gap: 16px; }
+  .brand-badge { font-size: 12px; padding: 2px 8px; }
+  .brand-mark { width: 38px; height: 36.3px; }
+  .brand-word { font-size: 30px; }
+  .brand { gap: 14px; }
+  .hero-title { font-size: clamp(30px, 8vw, 38px); }
+  .hero-actions { flex-wrap: wrap; gap: 16px; }
+  .btn-solid, .btn-outline { height: 52px; font-size: 18px; padding: 0 22px; min-width: 0; flex: 1 1 auto; }
+  .capabilities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 8px; }
+  .capabilities li { padding: 0; }
+  .cap-icon { width: 40px; height: 40px; }
+  .feature-card { flex-direction: column; gap: 18px; }
+  .feature-text p { max-width: none; }
+}
+
+@media (max-width: 480px) {
+  :root { --gutter: 16px; }
+  .dev-banner-inner { padding-inline: 16px; }
+  .header-inner { padding: 12px 16px 8px; gap: 12px; }
+  .brand { gap: 11px; }
+  .brand-mark { width: 33px; height: 31.5px; }
+  .brand-word { font-size: 26px; }
+  .btn-sm { height: 46px; min-width: 0; padding: 0 15px; font-size: 17px; }
 }
